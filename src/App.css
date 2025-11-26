@@ -1,42 +1,231 @@
+/* --- 1. Global Definitions (Colors, Fonts, Base Animations) --- */
+
+:root {
+  /* Custom Variables for a Clean, Dark Theme */
+  --color-primary: #007bff; /* Bright blue for accents */
+  --color-secondary: #4a90e2; /* Lighter blue/accent */
+  --color-background-dark: #0a0a0a; /* Deep, clean background */
+  --color-surface-dark: #1f1f1f; /* Slightly lighter surfaces for contrast */
+  --color-text-light: #e0e0e0; /* Light text on dark background */
+  --color-error: #ff4d4f;
+  
+  /* Global Transition for smooth animation effects */
+  transition: all 0.4s ease-out;
+}
+
+/* Reset and apply the dark mode theme to the body */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-background-dark);
+  color: var(--color-text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* --- 2. Root & Main App Layout --- */
+
 #root {
-  max-width: 1280px;
+  max-width: 1400px; /* Slightly wider than default */
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Style the main App container from App.jsx */
+.App {
+    padding: 30px;
+    border-radius: 12px;
+    background-color: var(--color-surface-dark);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7); /* Deep shadow for depth */
+    animation: fadeIn 1s ease-out; /* Initial page load animation */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App h1 {
+    color: var(--color-primary);
+    margin-bottom: 40px;
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* --- 3. Component & Form Card Styling (Animated) --- */
+
+/* Note: You should update your CustomerSignup and UserLogin divs 
+   to use <div className="card"> for this to take full effect. */
+.card { 
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: #2a2a2a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+    max-width: 400px;
+    margin: 0 auto; /* Ensures it stays centered if used without flex */
 }
 
-.card {
-  padding: 2em;
+/* Subtle Hover Animation: Lifts the card and increases shadow */
+.card:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
 }
 
+/* --- 4. Form Elements & Button Styling (Animated) --- */
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #333;
+    color: var(--color-text-light);
+    box-sizing: border-box; /* Important for padding/width calculation */
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated Button Hover: Darkens and provides a small press effect */
+button:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Status Messages */
+.card p {
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+.card p[style*="green"] {
+    color: #4CAF50 !important;
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.card p[style*="red"] {
+    color: var(--color-error) !important;
+    background-color: rgba(255, 77, 79, 0.1);
+}
+
+
+/* --- 5. Utility Animations (Keyframes) --- */
+
+/* Simple fade-in for page load */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Cleanup: Remove the .read-the-docs style as it's not relevant to e-commerce */
 .read-the-docs {
-  color: #888;
+  display: none; 
+}
+/* Note: All the old logo and spin CSS was removed for a cleaner file. */
+/* --- New CSS for Auth Page Tabs --- */
+
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #2a2a2a; /* Same as card background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.auth-tabs button {
+  flex-grow: 1;
+  padding: 12px;
+  border: none;
+  background-color: #2a2a2a;
+  color: #a0a0a0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  transform: none; /* Override general button animations */
+  box-shadow: none;
+}
+
+.auth-tabs button:hover {
+  color: var(--color-text-light);
+  background-color: #383838;
+}
+
+.auth-tabs button.active {
+  background-color: var(--color-primary);
+  color: white;
+  border-bottom: 3px solid var(--color-primary);
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.4);
+}
+
+.auth-tabs button.active:hover {
+  background-color: var(--color-primary);
+}
+/* src/App.css */
+
+/* --- Modal Styles for Cart Checkout --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* This makes the dark, semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    /* This makes the content box visible */
+    background-color: white; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px; /* Added max-width to center it better */
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-out;
+    color: black;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ensure pulse animation is defined for the cart summary badge */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
